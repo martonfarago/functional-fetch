@@ -1,0 +1,31 @@
+{
+  "name": "functional-fetch",
+  "version": "1.0.0",
+  "description": "Helpers to use the Fetch API in a more immutable and functional way.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://interferenc@github.com/interferenc/functional-fetch.git"
+  },
+  "author": "Marton Farago <interferenc@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/interferenc/functional-fetch/issues"
+  },
+  "homepage": "https://github.com/interferenc/functional-fetch#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "jest": "^26.6.3",
+    "jest-fetch-mock": "^3.0.3",
+    "ts-jest": "^26.5.4",
+    "typescript": "^4.2.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  }
+}
