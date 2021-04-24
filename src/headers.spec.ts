@@ -1,12 +1,12 @@
 import fetchMock from "jest-fetch-mock";
-import { setHeaders } from "./header";
+import { appendAllHeaders } from "./header";
 
 fetchMock.enableMocks();
 
-describe("setHeaders", () => {
-  it("adds passed header to a request", () => {
+describe("appendAllHeaders", () => {
+  it("appends passed header to a request", () => {
     // act
-    const request = setHeaders(new Headers({ bar: "foo", baz: "bar" }))(
+    const request = appendAllHeaders(new Headers({ bar: "foo", baz: "bar" }))(
       new Request("https://someurl.com")
     );
 
@@ -15,7 +15,7 @@ describe("setHeaders", () => {
     expect(request.headers.get("baz")).toBe("bar");
   });
 
-  it("removes unaffected keys", () => {
+  it("preserves unaffected keys", () => {
     // arrange
     const request = new Request("https://someurl.com", {
       headers: new Headers({
@@ -24,15 +24,15 @@ describe("setHeaders", () => {
     });
 
     // act
-    const requestWithNewHeaders = setHeaders(
+    const requestWithNewHeaders = appendAllHeaders(
       new Headers({ bar: "foo", baz: "bar" })
     )(request);
 
     // assert
-    expect(requestWithNewHeaders.headers.get("foo")).toBeNull();
+    expect(requestWithNewHeaders.headers.get("foo")).toBe("bar");
   });
 
-  it("overwrites existing keys", () => {
+  it("combines new and existing ones", () => {
     // arrange
     const request = new Request("https://someurl.com", {
       headers: new Headers({
@@ -41,12 +41,12 @@ describe("setHeaders", () => {
     });
 
     // act
-    const requestWithNewHeaders = setHeaders(
+    const requestWithNewHeaders = appendAllHeaders(
       new Headers({ foo: "baz", baz: "bar" })
     )(request);
 
     // assert
-    expect(requestWithNewHeaders.headers.get("foo")).toBe("baz");
+    expect(requestWithNewHeaders.headers.get("foo")).toBe("bar, baz");
     expect(requestWithNewHeaders.headers.get("baz")).toBe("bar");
   });
 });

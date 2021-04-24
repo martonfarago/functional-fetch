@@ -1,4 +1,4 @@
 export * from "./request";
 export * from "./header";
-export * from "./query";
+export * from "./searchParam";
 export * from "./body";
