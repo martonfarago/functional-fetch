@@ -13,6 +13,7 @@
     "type": "git",
     "url": "git+https://interferenc@github.com/interferenc/functional-fetch.git"
   },
+  "files": ["dist/**/*"],
   "author": "Marton Farago <interferenc@gmail.com>",
   "license": "MIT",
   "bugs": {
