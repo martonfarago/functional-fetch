@@ -2,9 +2,11 @@
   "name": "functional-fetch",
   "version": "1.0.0",
   "description": "Helpers to use the Fetch API in a more immutable and functional way.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc"
   },
   "type": "module",
   "repository": {
