@@ -1,12 +1,12 @@
 import fetchMock from "jest-fetch-mock";
-import { appendAllSearchParams } from "./searchParam";
+import { appendSearchParams } from "./url";
 
 fetchMock.enableMocks();
 
-describe("appendAllSearchParams", () => {
+describe("appendSearchParams", () => {
   it("appends passed queries to a request", () => {
     // act
-    const url = appendAllSearchParams(
+    const url = appendSearchParams(
       new URLSearchParams({ bar: "foo", baz: "bar" })
     )(new URL("https://someurl.com"));
 
@@ -20,7 +20,7 @@ describe("appendAllSearchParams", () => {
     const url = new URL("https://someurl.com?foo=bar");
 
     // act
-    const urlWithNewQuery = appendAllSearchParams(
+    const urlWithNewQuery = appendSearchParams(
       new URLSearchParams({ bar: "foo", baz: "bar" })
     )(url);
 
@@ -33,7 +33,7 @@ describe("appendAllSearchParams", () => {
     const url = new URL("https://someurl.com?foo=bar");
 
     // act
-    const urlWithNewQuery = appendAllSearchParams(
+    const urlWithNewQuery = appendSearchParams(
       new URLSearchParams({ foo: "baz", baz: "bar" })
     )(url);
 

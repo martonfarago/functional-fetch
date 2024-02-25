@@ -1,36 +1,30 @@
-/**
- * Curried create request factory function
- * @param method The HTTP verb to use for the request
- */
-const request = (method: string) => (url: URL) =>
-  new Request(url.toString(), { method });
+const request = (method: string) => (url: URL) => new Request(url, { method });
 
-/**
- * Creates a GET request
- * @param url URL of the resource
- */
-export const getRequest = request("GET");
+export const getFromURL = request("GET");
+export const putFromURL = request("PUT");
+export const patchFromURL = request("PATCH");
+export const postFromURL = request("POST");
+export const deleteFromURL = request("DELETE");
 
-/**
- * Creates a PUT request
- * @param url URL of the resource
- */
-export const putRequest = request("PUT");
+export const setBody = (body: BodyInit) => (r: Request) =>
+  new Request(r, { body });
 
-/**
- * Creates a PATCH request
- * @param url URL of the resource
- */
-export const patchRequest = request("PATCH");
+export const unsetBody = (r: Request) => new Request(r, { body: null });
 
-/**
- * Creates a POST request
- * @param url URL of the resource
- */
-export const postRequest = request("POST");
+export const appendHeaders = (h: HeadersInit) => (r: Request) => {
+  const headers = new Headers(r.headers);
+  new Headers(h).forEach((value, key) => headers.append(key, value));
+  return new Request(r, { headers });
+};
 
-/**
- * Creates a DELETE request
- * @param url URL of the resource
- */
-export const deleteRequest = request("DELETE");
+export const setHeaders = (h: HeadersInit) => (r: Request) => {
+  const headers = new Headers(r.headers);
+  new Headers(h).forEach((value, key) => headers.set(key, value));
+  return new Request(r, { headers });
+};
+
+export const unsetHeader = (key: string) => (r: Request) => {
+  const headers = new Headers(r.headers);
+  r.headers.delete(key);
+  return new Request(r, { headers });
+};
